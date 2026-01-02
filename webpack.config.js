@@ -37,12 +37,12 @@ module.exports = (env, argv) => {
         mode: mode,
         entry: './src/index.js', // 入口文件
         output: {
-            filename: 'js/[name].[hash:8].js', // 每次打包生成随机字符串的文件名
+            filename: 'js/[name].[contenthash:8].js', // 每次打包生成随机字符串的文件名
             // filename: 'dist.js', // 输出文件名
-            chunkFilename: 'js/[name].[hash:8].chunk.js', // 动态导入的 chunk
+            chunkFilename: 'js/[name].[contenthash:8].chunk.js', // 动态导入的 chunk
             path: path.resolve(__dirname, 'dist'), // 输出结果放在dist目录下
             // 设置 publicPath 为根路径，确保资源路径正确，这对 historyApiFallback 很重要
-            publicPath: '/'
+            publicPath: '/',
         },
         optimization: {
             minimize: isProduction, // 只在生产环境压缩

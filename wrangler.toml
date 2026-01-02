@@ -1,0 +1,6 @@
+name = "max-react-site"
+type = "javascript"
+workers_dev = true
+
+# 设置构建输出目录和 Worker 入口点
+site = { bucket = "./dist", entry-point = "/index.html" }

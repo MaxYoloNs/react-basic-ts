@@ -1,4 +1,6 @@
 const path = require('path'); // node提供的path库
+const fs = require('fs'); // 文件系统操作
+const { execSync } = require('child_process'); // 执行命令
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // CSS 提取插件
@@ -22,6 +24,69 @@ class GenerateRedirectsPlugin {
                     });
                 }
             );
+        });
+    }
+}
+
+// 自定义插件：更新 wrangler.toml 中的 compatibility-date 并执行部署
+class UpdateWranglerDatePlugin {
+    constructor(options = {}) {
+        this.options = {
+            autoDeploy: options.autoDeploy !== false, // 默认自动部署
+            wranglerPath: options.wranglerPath || path.resolve(__dirname, 'wrangler.toml'),
+            ...options
+        };
+    }
+
+    apply(compiler) {
+        compiler.hooks.done.tap('UpdateWranglerDatePlugin', (stats) => {
+            // 只在生产环境且构建成功时执行
+            if (stats.compilation.options.mode === 'production' && !stats.hasErrors()) {
+                try {
+                    // 获取当前日期（格式：YYYY-MM-DD）
+                    const currentDate = new Date().toISOString().split('T')[0];
+
+                    // 读取 wrangler.toml 文件
+                    let wranglerContent = fs.readFileSync(this.options.wranglerPath, 'utf8');
+
+                    // 更新或添加 compatibility-date
+                    if (wranglerContent.includes('compatibility_date')) {
+                        // 如果已存在，更新日期
+                        wranglerContent = wranglerContent.replace(
+                            /compatibility_date\s*=\s*["']?[\d-]+["']?/,
+                            `compatibility_date = "${currentDate}"`
+                        );
+                    } else {
+                        // 如果不存在，在 type 行后添加
+                        wranglerContent = wranglerContent.replace(
+                            /(type\s*=\s*"javascript")/,
+                            `$1\ncompatibility_date = "${currentDate}"`
+                        );
+                    }
+
+                    // 写入更新后的内容
+                    fs.writeFileSync(this.options.wranglerPath, wranglerContent, 'utf8');
+                    console.log(`✅ 已更新 wrangler.toml 中的 compatibility_date 为: ${currentDate}`);
+
+                    // 如果启用自动部署，执行 wrangler deploy 命令
+                    if (this.options.autoDeploy) {
+                        console.log('🚀 开始部署到 Cloudflare Workers...');
+                        try {
+                            execSync(`npx wrangler deploy --compatibility-date ${currentDate}`, {
+                                stdio: 'inherit',
+                                cwd: __dirname
+                            });
+                            console.log('✅ 部署成功！');
+                        } catch (error) {
+                            console.error('❌ 部署失败:', error.message);
+                            // 不抛出错误，避免中断构建流程
+                        }
+                    }
+                } catch (error) {
+                    console.error('❌ 更新 wrangler.toml 失败:', error.message);
+                    // 不抛出错误，避免中断构建流程
+                }
+            }
         });
     }
 }
@@ -223,6 +288,11 @@ module.exports = (env, argv) => {
             new GenerateRedirectsPlugin(),
             // 生产环境提取 CSS 为独立文件
             ...(isProduction ? [
+                // 更新 wrangler.toml 中的 compatibility-date 并执行部署
+                // 可通过环境变量控制是否自动部署：AUTO_DEPLOY=false npm run build
+                new UpdateWranglerDatePlugin({
+                    autoDeploy: process.env.AUTO_DEPLOY !== 'false'
+                }),
                 new MiniCssExtractPlugin({
                     filename: 'css/[name].[contenthash:8].css',
                     chunkFilename: 'css/[name].[contenthash:8].chunk.css',

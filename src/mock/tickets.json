@@ -1,0 +1,161 @@
+[{
+        "id": 1,
+        "title": "Login Issue",
+        "description": "User unable to log into their account.",
+        "assignedAgent": "Alice",
+        "dueDate": "2024-12-10",
+        "status": "Open"
+    },
+    {
+        "id": 2,
+        "title": "Payment Failure",
+        "description": "Payment is not going through for a specific order.",
+        "assignedAgent": "Bob",
+        "dueDate": "2024-12-12",
+        "status": "In Progress"
+    },
+    {
+        "id": 3,
+        "title": "Bug Report",
+        "description": "UI issue in the dashboard.",
+        "assignedAgent": "Alice",
+        "dueDate": "2024-12-15",
+        "status": "In Progress"
+    },
+    {
+        "id": 4,
+        "title": "Password Reset",
+        "description": "Customer requested a password reset link but didn't receive it.",
+        "assignedAgent": "Charlie",
+        "dueDate": "2024-12-08",
+        "status": "Open"
+    },
+    {
+        "id": 5,
+        "title": "Server Downtime",
+        "description": "Reported server downtime in the US region.",
+        "assignedAgent": "Alice",
+        "dueDate": "2024-12-11",
+        "status": "In Progress"
+    },
+    {
+        "id": 6,
+        "title": "Account Suspension",
+        "description": "Customer's account was suspended without prior notice.",
+        "assignedAgent": "Bob",
+        "dueDate": "2024-12-14",
+        "status": "Open"
+    },
+    {
+        "id": 7,
+        "title": "Feature Request",
+        "description": "Request for adding dark mode feature in the app.",
+        "assignedAgent": "Charlie",
+        "dueDate": "2024-12-20",
+        "status": "Resolved"
+    },
+    {
+        "id": 8,
+        "title": "Mobile App Crash",
+        "description": "The mobile app crashes on the payment screen.",
+        "assignedAgent": "Alice",
+        "dueDate": "2024-12-13",
+        "status": "In Progress"
+    },
+    {
+        "id": 9,
+        "title": "Email Delivery Failure",
+        "description": "Emails are not being delivered to customers.",
+        "assignedAgent": "Charlie",
+        "dueDate": "2024-12-17",
+        "status": "Open"
+    },
+    {
+        "id": 10,
+        "title": "Missing Orders",
+        "description": "Orders are missing from the admin dashboard.",
+        "assignedAgent": "Bob",
+        "dueDate": "2024-12-19",
+        "status": "Resolved"
+    },
+    {
+        "id": 11,
+        "title": "API Timeout",
+        "description": "The API is timing out on heavy requests.",
+        "assignedAgent": "Alice",
+        "dueDate": "2024-12-18",
+        "status": "In Progress"
+    },
+    {
+        "id": 12,
+        "title": "Data Sync Issue",
+        "description": "Customer data is not syncing properly.",
+        "assignedAgent": "Charlie",
+        "dueDate": "2024-12-09",
+        "status": "Open"
+    },
+    {
+        "id": 13,
+        "title": "Broken Link",
+        "description": "A broken link was reported on the homepage.",
+        "assignedAgent": "Bob",
+        "dueDate": "2024-12-07",
+        "status": "Resolved"
+    },
+    {
+        "id": 14,
+        "title": "Slow Application",
+        "description": "Customers are reporting slowness in the mobile app.",
+        "assignedAgent": "Alice",
+        "dueDate": "2024-12-16",
+        "status": "Open"
+    },
+    {
+        "id": 15,
+        "title": "Duplicate Notifications",
+        "description": "Users are receiving duplicate notifications for the same event.",
+        "assignedAgent": "Charlie",
+        "dueDate": "2024-12-13",
+        "status": "Resolved"
+    },
+    {
+        "id": 16,
+        "title": "Database Error",
+        "description": "Intermittent database errors are causing issues.",
+        "assignedAgent": "Bob",
+        "dueDate": "2024-12-15",
+        "status": "In Progress"
+    },
+    {
+        "id": 17,
+        "title": "Customer Feedback",
+        "description": "Customer submitted feedback about incorrect billing.",
+        "assignedAgent": "Alice",
+        "dueDate": "2024-12-14",
+        "status": "Open"
+    },
+    {
+        "id": 18,
+        "title": "Application Crash",
+        "description": "The desktop application crashes on startup.",
+        "assignedAgent": "Charlie",
+        "dueDate": "2024-12-11",
+        "status": "In Progress"
+    },
+    {
+        "id": 19,
+        "title": "Notification Issue",
+        "description": "Push notifications are not being delivered on iOS devices.",
+        "assignedAgent": "Alice",
+        "dueDate": "2024-12-20",
+        "status": "Open"
+    },
+    {
+        "id": 20,
+        "title": "Subscription Problem",
+        "description": "User unable to subscribe to a premium plan.",
+        "assignedAgent": "Bob",
+        "dueDate": "2024-12-10",
+        "status": "Resolved"
+    }
+]

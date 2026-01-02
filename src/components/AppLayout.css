@@ -1,0 +1,94 @@
+.app-layout {
+    min-height: 100vh;
+}
+
+.app-sider {
+    overflow: auto;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.logo {
+    height: 64px;
+    margin: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #1890ff;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+.app-header {
+    background: #fff;
+    padding: 0 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 200px;
+    z-index: 100;
+    transition: left 0.2s;
+}
+
+.app-sider.ant-layout-sider-collapsed~.app-header {
+    left: 80px;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.header-content h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+    font-display: swap;
+}
+
+.header-logo {
+    height: 40px;
+    width: auto;
+    border-radius: 4px;
+}
+
+.app-content {
+    margin: 64px 0 0 200px;
+    padding: 24px;
+    transition: margin-left 0.2s;
+}
+
+.app-sider.ant-layout-sider-collapsed~.app-content {
+    margin-left: 80px;
+}
+
+.content-wrapper {
+    background: #fff;
+    padding: 24px;
+    min-height: calc(100vh - 112px);
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+/* 响应式设计 */
+
+@media (max-width: 768px) {
+    .app-sider {
+        position: relative;
+    }
+    .app-header {
+        left: 0;
+    }
+    .app-content {
+        margin-left: 0;
+    }
+}

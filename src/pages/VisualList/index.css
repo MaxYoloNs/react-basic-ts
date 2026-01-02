@@ -1,0 +1,423 @@
+/* 虚拟列表页面容器 */
+
+.visual-list-page {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.visual-list-page h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+
+/* 控制面板 */
+
+.controls {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    flex-wrap: wrap;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.control-group label {
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+}
+
+.control-group input {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 150px;
+    transition: border-color 0.3s;
+}
+
+.control-group input:focus {
+    outline: none;
+    border-color: #1890ff;
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.1);
+}
+
+
+/* 信息栏 */
+
+.info-bar {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    background: #e6f7ff;
+    border-left: 3px solid #1890ff;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #0050b3;
+}
+
+.info-bar span {
+    padding: 0 10px;
+}
+
+
+/* 虚拟列表包装器 */
+
+.virtual-list-wrapper {
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: #fff;
+}
+
+
+/* 虚拟列表容器 */
+
+.virtual-list-container {
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    background: #fff;
+    /* 优化滚动性能 */
+    will-change: scroll-position;
+    -webkit-overflow-scrolling: touch;
+}
+
+
+/* 自定义滚动条样式 */
+
+.virtual-list-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.virtual-list-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.virtual-list-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.virtual-list-container::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+
+/* 虚拟列表内容区域 */
+
+.virtual-list-content {
+    position: relative;
+    width: 100%;
+}
+
+
+/* 占位符（上方和下方） */
+
+.virtual-list-spacer {
+    width: 100%;
+    /* 占位符不需要样式，只用于占位 */
+}
+
+
+/* 虚拟列表项 */
+
+.virtual-list-item {
+    position: absolute;
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
+    padding: 0;
+    /* 优化渲染性能：强制浏览器为指定的元素创建新的复合层 */
+    will-change: transform;
+}
+
+
+/* 列表项内容 */
+
+.virtual-list-item-content {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    background: #fff;
+    transition: background-color 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-sizing: border-box;
+}
+
+.virtual-list-item:hover .virtual-list-item-content {
+    background: #fafafa;
+}
+
+
+/* 默认列表项样式 */
+
+.virtual-list-item-default {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+    color: #666;
+    word-break: break-all;
+}
+
+
+/* 列表项头部 */
+
+.item-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.item-index {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 24px;
+    padding: 0 8px;
+    background: #f0f0f0;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+}
+
+.item-name {
+    flex: 1;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+}
+
+
+/* 状态标签 */
+
+.item-status {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.item-status-active {
+    background: #f6ffed;
+    color: #52c41a;
+    border: 1px solid #b7eb8f;
+}
+
+.item-status-inactive {
+    background: #fff2e8;
+    color: #fa8c16;
+    border: 1px solid #ffd591;
+}
+
+.item-status-pending {
+    background: #e6f7ff;
+    color: #1890ff;
+    border: 1px solid #91d5ff;
+}
+
+
+/* 列表项主体 */
+
+.item-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.item-description {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+}
+
+
+/* 图片容器 */
+
+.item-image-container {
+    position: relative;
+    width: 100%;
+    margin: 8px 0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.item-image-placeholder {
+    width: 100%;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s ease-in-out infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.item-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    border-radius: 4px;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.item-image[data-lazy] {
+    opacity: 0;
+}
+
+.item-image:not([data-lazy]) {
+    opacity: 1;
+}
+
+
+/* 列表项底部 */
+
+.item-footer {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+    color: #999;
+    margin-top: 4px;
+}
+
+.item-footer span {
+    display: flex;
+    align-items: center;
+}
+
+
+/* 性能信息区域 */
+
+.performance-info {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border-left: 4px solid #52c41a;
+}
+
+.performance-info h3 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.performance-info ul {
+    margin: 0;
+    padding-left: 20px;
+    list-style: none;
+}
+
+.performance-info li {
+    padding: 8px 0;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+    position: relative;
+    padding-left: 25px;
+}
+
+.performance-info li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #52c41a;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+
+/* 响应式设计 */
+
+@media (max-width: 768px) {
+    .visual-list-page {
+        padding: 15px;
+    }
+    .controls {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .control-group input {
+        width: 100%;
+    }
+    .info-bar {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .item-header {
+        flex-wrap: wrap;
+    }
+    .item-footer {
+        flex-direction: column;
+        gap: 4px;
+    }
+}
+
+
+/* 滚动性能优化 */
+
+.virtual-list-container {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+.virtual-list-item {
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+
+/* 加载状态（可选） */
+
+.virtual-list-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    color: #999;
+    font-size: 14px;
+}
+
+
+/* 空状态（可选） */
+
+.virtual-list-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    color: #999;
+    font-size: 14px;
+    text-align: center;
+}

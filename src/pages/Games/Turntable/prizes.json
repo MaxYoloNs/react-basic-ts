@@ -1,0 +1,69 @@
+{
+  "prizes": [
+    {
+      "id": 1,
+      "name": "谢谢参与",
+      "icon": "😊",
+      "color": "#E8E8E8",
+      "probability": 0.3,
+      "description": "很遗憾，这次没有中奖"
+    },
+    {
+      "id": 2,
+      "name": "10元优惠券",
+      "icon": "🎫",
+      "color": "#FFD700",
+      "probability": 0.25,
+      "description": "恭喜获得10元优惠券"
+    },
+    {
+      "id": 3,
+      "name": "50元优惠券",
+      "icon": "🎁",
+      "color": "#FF6B6B",
+      "probability": 0.15,
+      "description": "恭喜获得50元优惠券"
+    },
+    {
+      "id": 4,
+      "name": "100元优惠券",
+      "icon": "💰",
+      "color": "#4ECDC4",
+      "probability": 0.1,
+      "description": "恭喜获得100元优惠券"
+    },
+    {
+      "id": 5,
+      "name": "200元优惠券",
+      "icon": "💎",
+      "color": "#95E1D3",
+      "probability": 0.08,
+      "description": "恭喜获得200元优惠券"
+    },
+    {
+      "id": 6,
+      "name": "500元优惠券",
+      "icon": "🏆",
+      "color": "#F38181",
+      "probability": 0.05,
+      "description": "恭喜获得500元优惠券"
+    },
+    {
+      "id": 7,
+      "name": "1000元大奖",
+      "icon": "🎉",
+      "color": "#AA96DA",
+      "probability": 0.05,
+      "description": "恭喜获得1000元大奖！"
+    },
+    {
+      "id": 8,
+      "name": "再来一次",
+      "icon": "🔄",
+      "color": "#FCBAD3",
+      "probability": 0.02,
+      "description": "恭喜获得再来一次机会"
+    }
+  ]
+}
+

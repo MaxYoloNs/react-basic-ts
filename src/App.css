@@ -1,0 +1,117 @@
+/* 移除全量导入，使用 babel-plugin-import 按需加载样式 */
+
+
+/* @import '~antd/dist/antd.css'; */
+
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: flex-start;
+    /* 确保所有主节点水平对齐 */
+    position: relative;
+}
+
+.item-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    /* 确保子节点不会影响主节点对齐 */
+    gap: 10px;
+    position: relative;
+    /* 确保子节点的定位生效 */
+    min-height: 150px;
+    /* 确保主节点高度一致 */
+}
+
+.top-children {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.bottom-children {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    text-align: center;
+    background-color: white;
+    position: relative;
+    /* 为箭头绘制准备 */
+}
+
+.child {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: 1px solid #aaa;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.arrows {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 300px;
+    pointer-events: none;
+}
+
+
+/* Centering the content */
+
+.centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+/* Flex wrapper for ticket cards */
+
+.ticket-board {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+
+/* Ticket card styling */
+
+.ticket-card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    width: 250px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    text-align: center;
+}
+
+.ticket-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.ticket-card p {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.ticket-card .status {
+    font-weight: bold;
+}

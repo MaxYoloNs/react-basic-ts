@@ -1,0 +1,57 @@
+[{
+        "id": 1,
+        "name": "张三",
+        "age": 25,
+        "score": 85,
+        "department": "技术部",
+        "status": 1
+    },
+    {
+        "id": 2,
+        "name": "李四",
+        "age": 30,
+        "score": 92,
+        "department": "产品部",
+        "status": 2
+    },
+    {
+        "id": 3,
+        "name": "王五",
+        "age": 28,
+        "score": 78,
+        "department": "技术部",
+        "status": 3
+    },
+    {
+        "id": 4,
+        "name": "赵六",
+        "age": 25,
+        "score": 88,
+        "department": "设计部",
+        "status": 4
+    },
+    {
+        "id": 5,
+        "name": "钱七",
+        "age": 32,
+        "score": 95,
+        "department": "产品部",
+        "status": 5
+    },
+    {
+        "id": 6,
+        "name": "孙八",
+        "age": 28,
+        "score": 82,
+        "department": "技术部",
+        "status": 1
+    },
+    {
+        "id": 7,
+        "name": "周九",
+        "age": 26,
+        "score": 90,
+        "department": "设计部",
+        "status": 2
+    }
+]

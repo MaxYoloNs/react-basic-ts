@@ -28,64 +28,33 @@ class GenerateRedirectsPlugin {
     }
 }
 
-// 自定义插件：更新 wrangler.jsonc 中的 compatibility-date 并执行部署（适用于 Cloudflare Pages）
-class UpdateWranglerDatePlugin {
+// 自定义插件：执行 Cloudflare Pages 部署
+class CloudflarePagesDeployPlugin {
     constructor(options = {}) {
         this.options = {
             autoDeploy: options.autoDeploy !== false, // 默认自动部署
-            wranglerPath: options.wranglerPath || path.resolve(__dirname, 'wrangler.jsonc'),
+            projectName: options.projectName || 'react-basic',
             ...options
         };
     }
 
     apply(compiler) {
-        compiler.hooks.done.tap('UpdateWranglerDatePlugin', (stats) => {
+        compiler.hooks.done.tap('CloudflarePagesDeployPlugin', (stats) => {
             // 只在生产环境且构建成功时执行
             if (stats.compilation.options.mode === 'production' && !stats.hasErrors()) {
-                try {
-                    // 检查 wrangler.jsonc 文件是否存在
-                    if (!fs.existsSync(this.options.wranglerPath)) {
-                        // 如果文件不存在，跳过更新（适用于 Cloudflare Pages，不需要 wrangler.jsonc）
-                        return;
+                // 如果启用自动部署，执行 wrangler pages deploy 命令（适用于 Cloudflare Pages）
+                if (this.options.autoDeploy) {
+                    console.log('🚀 开始部署到 Cloudflare Pages...');
+                    try {
+                        execSync(`npx wrangler pages deploy dist --project-name=${this.options.projectName}`, {
+                            stdio: 'inherit',
+                            cwd: __dirname
+                        });
+                        console.log('✅ 部署成功！');
+                    } catch (error) {
+                        console.error('❌ 部署失败:', error.message);
+                        // 不抛出错误，避免中断构建流程
                     }
-
-                    // 获取当前日期（格式：YYYY-MM-DD）
-                    const currentDate = new Date().toISOString().split('T')[0];
-
-                    // 读取 wrangler.jsonc 文件（JSONC 格式，支持注释）
-                    let wranglerContent = fs.readFileSync(this.options.wranglerPath, 'utf8');
-
-                    // 移除注释（简单处理，移除 // 注释）
-                    const jsonContent = wranglerContent.replace(/\/\/.*$/gm, '');
-
-                    // 解析 JSON
-                    let wranglerConfig = JSON.parse(jsonContent);
-
-                    // 更新 compatibility_date
-                    wranglerConfig.compatibility_date = currentDate;
-
-                    // 写回文件（格式化 JSON）
-                    const updatedContent = JSON.stringify(wranglerConfig, null, 2);
-                    fs.writeFileSync(this.options.wranglerPath, updatedContent, 'utf8');
-                    console.log(`✅ 已更新 wrangler.jsonc 中的 compatibility_date 为: ${currentDate}`);
-
-                    // 如果启用自动部署，执行 wrangler pages deploy 命令（适用于 Cloudflare Pages）
-                    if (this.options.autoDeploy) {
-                        console.log('🚀 开始部署到 Cloudflare Pages...');
-                        try {
-                            execSync(`npx wrangler pages deploy dist`, {
-                                stdio: 'inherit',
-                                cwd: __dirname
-                            });
-                            console.log('✅ 部署成功！');
-                        } catch (error) {
-                            console.error('❌ 部署失败:', error.message);
-                            // 不抛出错误，避免中断构建流程
-                        }
-                    }
-                } catch (error) {
-                    console.error('❌ 更新 wrangler.jsonc 失败:', error.message);
-                    // 不抛出错误，避免中断构建流程
                 }
             }
         });
@@ -289,10 +258,11 @@ module.exports = (env, argv) => {
             new GenerateRedirectsPlugin(),
             // 生产环境提取 CSS 为独立文件
             ...(isProduction ? [
-                // 更新 wrangler.jsonc 中的 compatibility-date 并执行部署
+                // 执行 Cloudflare Pages 部署
                 // 可通过环境变量控制是否自动部署：AUTO_DEPLOY=false npm run build
-                new UpdateWranglerDatePlugin({
-                    autoDeploy: process.env.AUTO_DEPLOY !== 'false'
+                new CloudflarePagesDeployPlugin({
+                    autoDeploy: process.env.AUTO_DEPLOY !== 'false',
+                    projectName: 'react-basic'
                 }),
                 new MiniCssExtractPlugin({
                     filename: 'css/[name].[contenthash:8].css',

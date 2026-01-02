@@ -1,0 +1,15 @@
+# Cloudflare Pages 配置文件
+# 用于纯静态项目部署
+
+name = "react-basic"
+compatibility_date = "2024-01-01"
+
+# Pages 项目配置
+# 构建输出目录，Cloudflare Pages 会从这个目录部署静态文件
+pages_build_output_dir = "dist"
+
+# 注意：
+# 1. 构建输出目录已设置为 "dist"，入口文件为 dist/index.html
+# 2. _redirects 文件会在构建时自动生成到 dist 目录，用于 SPA 路由
+# 3. 部署命令：npm run deploy:cf 或 wrangler pages deploy dist --project-name=react-basic
+

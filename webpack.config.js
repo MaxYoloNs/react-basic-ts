@@ -28,7 +28,7 @@ class GenerateRedirectsPlugin {
     }
 }
 
-// 自定义插件：更新 wrangler.toml 中的 compatibility-date 并执行部署
+// 自定义插件：更新 wrangler.toml 中的 compatibility-date 并执行部署（适用于 Cloudflare Pages）
 class UpdateWranglerDatePlugin {
     constructor(options = {}) {
         this.options = {
@@ -68,11 +68,11 @@ class UpdateWranglerDatePlugin {
                     fs.writeFileSync(this.options.wranglerPath, wranglerContent, 'utf8');
                     console.log(`✅ 已更新 wrangler.toml 中的 compatibility_date 为: ${currentDate}`);
 
-                    // 如果启用自动部署，执行 wrangler deploy 命令
+                    // 如果启用自动部署，执行 wrangler pages deploy 命令（适用于 Cloudflare Pages）
                     if (this.options.autoDeploy) {
-                        console.log('🚀 开始部署到 Cloudflare Workers...');
+                        console.log('🚀 开始部署到 Cloudflare Pages...');
                         try {
-                            execSync(`npx wrangler deploy --compatibility-date ${currentDate}`, {
+                            execSync(`npx wrangler pages deploy dist`, {
                                 stdio: 'inherit',
                                 cwd: __dirname
                             });

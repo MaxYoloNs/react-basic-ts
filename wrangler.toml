@@ -1,8 +1,0 @@
-name = "max-react-site"
-main = "./worker.js"
-compatibility_date = "2024-01-01"
-
-# 配置静态资源目录
-# bucket 指向包含 index.html 的构建输出目录
-# Workers Site 会自动将 bucket 中的文件映射到请求路径
-site = { bucket = "./dist" }

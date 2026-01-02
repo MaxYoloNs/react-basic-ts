@@ -30,8 +30,8 @@
         "start": "webpack serve --mode development --open",
         "build": "webpack --mode production",
         "build:analyze": "set ANALYZE=true && webpack --mode production",
-        "deploy": "npx wrangler deploy",
-        "deploy:dev": "npx wrangler dev",
+        "deploy": "npx wrangler pages deploy dist",
+        "deploy:dev": "npx wrangler pages dev dist",
         "test": "react-scripts test",
         "eject": "react-scripts eject"
     },

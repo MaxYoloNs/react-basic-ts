@@ -1,6 +1,6 @@
 const path = require('path'); // node提供的path库
-const fs = require('fs'); // 文件系统操作
-const { execSync } = require('child_process'); // 执行命令
+// const fs = require('fs'); // 文件系统操作
+// const { execSync } = require('child_process'); // 执行命令
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // CSS 提取插件
@@ -29,37 +29,37 @@ class GenerateRedirectsPlugin {
 }
 
 // 自定义插件：执行 Cloudflare Pages 部署
-class CloudflarePagesDeployPlugin {
-    constructor(options = {}) {
-        this.options = {
-            autoDeploy: options.autoDeploy !== false, // 默认自动部署
-            projectName: options.projectName || 'react-basic',
-            ...options
-        };
-    }
+// class CloudflarePagesDeployPlugin {
+//     constructor(options = {}) {
+//         this.options = {
+//             autoDeploy: options.autoDeploy !== false, // 默认自动部署
+//             projectName: options.projectName || 'react-basic',
+//             ...options
+//         };
+//     }
 
-    apply(compiler) {
-        compiler.hooks.done.tap('CloudflarePagesDeployPlugin', (stats) => {
-            // 只在生产环境且构建成功时执行
-            if (stats.compilation.options.mode === 'production' && !stats.hasErrors()) {
-                // 如果启用自动部署，执行 wrangler pages deploy 命令（适用于 Cloudflare Pages）
-                if (this.options.autoDeploy) {
-                    console.log('🚀 开始部署到 Cloudflare Pages...');
-                    try {
-                        execSync(`npx wrangler pages deploy dist`, {
-                            stdio: 'inherit',
-                            cwd: __dirname
-                        });
-                        console.log('✅ 部署成功！');
-                    } catch (error) {
-                        console.error('❌ 部署失败:', error.message);
-                        // 不抛出错误，避免中断构建流程
-                    }
-                }
-            }
-        });
-    }
-}
+//     apply(compiler) {
+//         compiler.hooks.done.tap('CloudflarePagesDeployPlugin', (stats) => {
+//             // 只在生产环境且构建成功时执行
+//             if (stats.compilation.options.mode === 'production' && !stats.hasErrors()) {
+//                 // 如果启用自动部署，执行 wrangler pages deploy 命令（适用于 Cloudflare Pages）
+//                 if (this.options.autoDeploy) {
+//                     console.log('🚀 开始部署到 Cloudflare Pages...');
+//                     try {
+//                         execSync(`npx wrangler pages deploy dist --project-name=${this.options.projectName}`, {
+//                             stdio: 'inherit',
+//                             cwd: __dirname
+//                         });
+//                         console.log('✅ 部署成功！');
+//                     } catch (error) {
+//                         console.error('❌ 部署失败:', error.message);
+//                         // 不抛出错误，避免中断构建流程
+//                     }
+//                 }
+//             }
+//         });
+//     }
+// }
 
 // 使用函数形式导出配置，可以获取 webpack CLI 的 mode 参数
 module.exports = (env, argv) => {
@@ -258,12 +258,12 @@ module.exports = (env, argv) => {
             new GenerateRedirectsPlugin(),
             // 生产环境提取 CSS 为独立文件
             ...(isProduction ? [
-                // 执行 Cloudflare Pages 部署
-                // 可通过环境变量控制是否自动部署：AUTO_DEPLOY=false npm run build
-                new CloudflarePagesDeployPlugin({
-                    autoDeploy: process.env.AUTO_DEPLOY !== 'false',
-                    projectName: 'react-basic'
-                }),
+                // // 执行 Cloudflare Pages 部署
+                // // 可通过环境变量控制是否自动部署：AUTO_DEPLOY=false npm run build
+                // new CloudflarePagesDeployPlugin({
+                //     autoDeploy: process.env.AUTO_DEPLOY !== 'false',
+                //     projectName: 'react-basic'
+                // }),
                 new MiniCssExtractPlugin({
                     filename: 'css/[name].[contenthash:8].css',
                     chunkFilename: 'css/[name].[contenthash:8].chunk.css',

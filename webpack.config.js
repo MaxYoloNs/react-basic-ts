@@ -6,6 +6,20 @@ const CompressionWebpackPlugin = require('compression-webpack-plugin'); // Gzip/
 const CriticalCssPlugin = require('./scripts/critical-css-plugin'); // 关键 CSS 内联插件
 const webpackBundleAnalyzer = require('webpack-bundle-analyzer'); // 可视化打包分析工具
 
+// 自定义插件：生成 _redirects 文件（用于 Cloudflare Pages SPA 路由）
+class GenerateRedirectsPlugin {
+    apply(compiler) {
+        compiler.hooks.emit.tapAsync('GenerateRedirectsPlugin', (compilation, callback) => {
+            const redirectsContent = '/*    /index.html   200\n';
+            compilation.assets['_redirects'] = {
+                source: () => redirectsContent,
+                size: () => redirectsContent.length
+            };
+            callback();
+        });
+    }
+}
+
 // 使用函数形式导出配置，可以获取 webpack CLI 的 mode 参数
 module.exports = (env, argv) => {
     // 从 webpack CLI 参数获取 mode，如果没有则从环境变量获取
@@ -199,6 +213,8 @@ module.exports = (env, argv) => {
                 // filename: 'index.html', // 确保输出文件名为 index.html
                 // inject: 'body', // 将脚本注入到 body 标签中
             }),
+            // 自动生成 _redirects 文件（用于 Cloudflare Pages SPA 路由）
+            new GenerateRedirectsPlugin(),
             // 生产环境提取 CSS 为独立文件
             ...(isProduction ? [
                 new MiniCssExtractPlugin({

@@ -46,7 +46,7 @@ class CloudflarePagesDeployPlugin {
                 if (this.options.autoDeploy) {
                     console.log('🚀 开始部署到 Cloudflare Pages...');
                     try {
-                        execSync(`npx wrangler pages deploy dist --project-name=${this.options.projectName}`, {
+                        execSync(`npx wrangler pages deploy dist`, {
                             stdio: 'inherit',
                             cwd: __dirname
                         });

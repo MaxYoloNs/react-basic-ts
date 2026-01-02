@@ -1,25 +1,35 @@
 // Cloudflare Workers Site 入口文件
 // 用于提供静态资源并支持 React SPA 路由
+// 
+// 注意：当使用 wrangler.toml 中的 site.bucket 配置时，
+// Cloudflare 会自动处理静态文件服务，此 Worker 主要用于处理 SPA 路由
 
-addEventListener('fetch', event => {
-    event.respondWith(handleRequest(event.request))
-})
+export default {
+    async fetch(request, env, ctx) {
+        const url = new URL(request.url);
+        const pathname = url.pathname;
 
-async function handleRequest(request) {
-    const url = new URL(request.url)
-    let pathname = url.pathname
+        // 尝试从 Workers Site bucket 获取请求的文件
+        // env.ASSETS 是 Workers Site 自动注入的绑定
+        let response = await env.ASSETS.fetch(request);
 
-    // 如果路径是根路径，返回 index.html
-    if (pathname === '/') {
-        pathname = '/index.html'
+        // 如果文件不存在（404）且不是静态资源请求，返回 index.html 以支持 SPA 路由
+        if (response.status === 404) {
+            // 检查是否是静态资源（有文件扩展名）
+            const hasFileExtension = pathname.includes('.') &&
+                !pathname.endsWith('/') &&
+                pathname.split('/').pop().includes('.');
+
+            // 如果不是静态资源，返回 index.html 以支持客户端路由
+            if (!hasFileExtension) {
+                const indexRequest = new Request(new URL('/index.html', request.url), {
+                    method: request.method,
+                    headers: request.headers,
+                });
+                response = await env.ASSETS.fetch(indexRequest);
+            }
+        }
+
+        return response;
     }
-
-    // 如果路径不包含文件扩展名，可能是 SPA 路由，返回 index.html
-    if (!pathname.includes('.')) {
-        pathname = '/index.html'
-    }
-
-    // 从 Workers Site 的 bucket 中获取文件
-    // Workers Site 会自动将 bucket 中的文件映射到请求路径
-    return fetch(request)
-}
+};

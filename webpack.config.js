@@ -9,13 +9,19 @@ const webpackBundleAnalyzer = require('webpack-bundle-analyzer'); // 可视化�
 // 自定义插件：生成 _redirects 文件（用于 Cloudflare Pages SPA 路由）
 class GenerateRedirectsPlugin {
     apply(compiler) {
-        compiler.hooks.emit.tapAsync('GenerateRedirectsPlugin', (compilation, callback) => {
-            const redirectsContent = '/*    /index.html   200\n';
-            compilation.assets['_redirects'] = {
-                source: () => redirectsContent,
-                size: () => redirectsContent.length
-            };
-            callback();
+        compiler.hooks.thisCompilation.tap('GenerateRedirectsPlugin', (compilation) => {
+            compilation.hooks.processAssets.tap({
+                    name: 'GenerateRedirectsPlugin',
+                    stage: compilation.PROCESS_ASSETS_STAGE_ADDITIONAL, // 在资源处理完成后添加
+                },
+                () => {
+                    const redirectsContent = '/*    /index.html   200\n';
+                    compilation.emitAsset('_redirects', {
+                        source: () => redirectsContent,
+                        size: () => redirectsContent.length
+                    });
+                }
+            );
         });
     }
 }

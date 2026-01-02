@@ -1,15 +1,12 @@
 # Cloudflare Pages 配置文件
 # 用于纯静态项目部署
+# 
+# 注意：对于纯静态 Pages 项目，此文件是可选的
+# 可以通过命令行参数直接配置：wrangler pages deploy dist --project-name=react-basic
+#
+# 如果需要使用此配置文件，请确保：
+# 1. 不要包含 Workers 特定的配置（如 account_id、main 等）
+# 2. 只包含 Pages 相关的配置（如 pages_build_output_dir）
 
-name = "react-basic"
-compatibility_date = "2024-01-01"
-
-# Pages 项目配置
-# 构建输出目录，Cloudflare Pages 会从这个目录部署静态文件
 pages_build_output_dir = "dist"
-
-# 注意：
-# 1. 构建输出目录已设置为 "dist"，入口文件为 dist/index.html
-# 2. _redirects 文件会在构建时自动生成到 dist 目录，用于 SPA 路由
-# 3. 部署命令：npm run deploy:cf 或 wrangler pages deploy dist --project-name=react-basic
 

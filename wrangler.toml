@@ -1,6 +1,9 @@
 name = "max-react-site"
 type = "javascript"
-workers_dev = true
 
-# 设置构建输出目录和 Worker 入口点
-site = { bucket = "./dist", entry-point = "/index.html" }
+# Worker 入口文件（必须指向 JavaScript 文件）
+main = "./worker.js"
+
+# 配置静态资源目录
+# bucket 指向包含 index.html 的构建输出目录
+site = { bucket = "./dist" }

@@ -1,5 +1,5 @@
 {
-    "name": "max-react-basic",
+    "name": "react-basic-ts",
     "version": "0.1.0",
     "private": true,
     "dependencies": {
@@ -32,7 +32,7 @@
         "build:analyze": "set ANALYZE=true && webpack --mode production",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "deploy": "wrangler pages deploy dist --project-name=max-react-basic"
+        "deploy": "wrangler pages deploy dist --project-name=react-basic-ts"
     },
     "proxy": "http://localhost:3001",
     "eslintConfig": {

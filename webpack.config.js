@@ -229,7 +229,7 @@ module.exports = (env, argv) => {
                 // // 可通过环境变量控制是否自动部署：AUTO_DEPLOY=false npm run build
                 // new CloudflarePagesDeployPlugin({
                 //     autoDeploy: process.env.AUTO_DEPLOY !== 'false',
-                //     projectName: 'max-react-basic'
+                //     projectName: 'react-basic-ts'
                 // }),
                 new MiniCssExtractPlugin({
                     filename: 'css/[name].[contenthash:8].css',
